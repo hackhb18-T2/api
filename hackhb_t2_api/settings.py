@@ -145,3 +145,15 @@ CORS_ORIGIN_WHITELIST = (
 
 # Set default user model
 AUTH_USER_MODEL = 'T2API.ApiUser'
+
+# Rest Framework setup
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}

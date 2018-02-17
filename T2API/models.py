@@ -5,6 +5,7 @@ from django.db import models
 class ApiUser(AbstractUser):
     pass
 
+
 class Product(models.Model):
     name = models.CharField(max_length=150)
     ean = models.CharField(max_length=13)
@@ -30,3 +31,9 @@ class Device(models.Model):
 
     class Meta:
         ordering = ('mac',)
+        permissions = (
+            'show_status',
+            'register_device',
+            'change_device',
+            'change_product'
+        )
