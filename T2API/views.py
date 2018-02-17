@@ -31,6 +31,21 @@ class DeviceViewSet(viewsets.ModelViewSet):
     serializer_class = DeviceSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
+    def get_weight(self):
+        pass
+
+    def register(self):
+        pass
+
+    def ping(self):
+        pass
+
+    def get_battery(self):
+        pass
+
+    def post_battery(self):
+        pass
+
 
 class ProductViewSet(viewsets.ModelViewSet):
     """

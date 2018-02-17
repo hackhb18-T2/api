@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
+import datetime
 import os
+
 import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -147,6 +149,7 @@ CORS_ORIGIN_WHITELIST = (
 AUTH_USER_MODEL = 'T2API.ApiUser'
 
 # Rest Framework setup
+JWT_EXPIRATION_DELTA = datetime.timedelta(minutes=10)
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
