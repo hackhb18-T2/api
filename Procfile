@@ -1,1 +1,1 @@
-web: gunicorn T2API.wsgi
+web: gunicorn hackhb_t2_api.wsgi
