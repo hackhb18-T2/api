@@ -59,8 +59,24 @@ class UaDeviceViewSet(DeviceViewSet):
                 return Response(serializer.errors,
                                 status=status.HTTP_400_BAD_REQUEST)
 
-    def register(self):
-        pass
+    @detail_route(methods=['POST'], permission_classes=(permissions.AllowAny,), url_name='register')
+    def register(self, request, pk=None):
+        # TODO
+        queryset = Device.objects.all()
+        device = get_object_or_404(queryset, pk=pk)
+
+        mac = request.data['mac']
+        initial_data = {
+            'mac' : mac
+        }
+
+        serializer = DeviceSerializer(device, data=initial_data, partial=True, context={'request': request})
+        if serializer.is_valid():
+            device = serializer.data
+            device.save()
+            return Response({'status': 'success'})
+        else:
+            return Response(serializer.errors,
 
     @detail_route(methods=['POST'], permission_classes=(permissions.AllowAny,), url_name='ping')
     def ping(self, request, pk=None):
