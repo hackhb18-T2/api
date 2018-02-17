@@ -40,18 +40,17 @@ class UaDeviceViewSet(DeviceViewSet):
 
     @detail_route(methods=['GET', 'POST'], permission_classes=(permissions.AllowAny,), url_name='weight')
     def weight(self, request, pk=None):
-        if request.method == 'GET':
-            queryset = Device.objects.all()
-            device = get_object_or_404(queryset, pk=pk)
-            serializer = DeviceSerializer(device, context={'request': request})
+        queryset = Device.objects.all()
+        device = get_object_or_404(queryset, pk=pk)
 
+        if request.method == 'GET':
+            serializer = DeviceSerializer(device, context={'request': request})
             return Response({'weight': serializer.data.get('last_weight')})
+
         elif request.method == 'POST':
-            queryset = Device.objects.all()
-            device = get_object_or_404(queryset, pk=pk)
             serializer = DeviceSerializer(device, data=request.data, partial=True, context={'request': request})
             if serializer.is_valid():
-                device.last_weight = serializer.data['last_weight']
+                device.last_weight = request.data['last_weight']
                 device.save()
                 return Response({'status': 'success'})
             else:
