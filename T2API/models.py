@@ -22,8 +22,8 @@ class Device(models.Model):
     mac = models.CharField(max_length=12, unique=True)
     secret_key = models.TextField(null=True, default=None)
     polling_rate = models.IntegerField(null=True)
-    resolution = models.CharField(max_length=15, default=None, null=True)
-    last_ping = models.DateTimeField(auto_now=True)
+    resolution = models.IntegerField(default=10)
+    last_ping = models.DateTimeField(default=None, null=True)
     battery_status = models.CharField(max_length=20, default=None, null=True)
     last_weight = models.IntegerField(null=False, default=-1)
 
