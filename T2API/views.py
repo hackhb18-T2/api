@@ -1,5 +1,8 @@
 from django.contrib.auth.models import Group
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, status
+from rest_framework.decorators import detail_route
+from rest_framework.generics import get_object_or_404
+from rest_framework.response import Response
 
 from T2API.models import ApiUser, Product, Device
 from T2API.serializers import UserSerializer, GroupSerializer, DeviceSerializer, ProductSerializer
@@ -31,8 +34,17 @@ class DeviceViewSet(viewsets.ModelViewSet):
     serializer_class = DeviceSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
-    def get_weight(self):
-        pass
+
+class UaDeviceViewSet(DeviceViewSet):
+    permission_classes = (permissions.AllowAny,)
+
+    @detail_route(methods=['GET'])
+    def weight(self, request, pk=None):
+        queryset = Device.objects.all()
+        device = get_object_or_404(queryset, pk=pk)
+        serializer = DeviceSerializer(device, context={'request': request})
+
+        return Response({'weight': serializer.data.get('last_weight')})
 
     def register(self):
         pass

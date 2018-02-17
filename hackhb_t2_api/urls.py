@@ -25,21 +25,18 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 router.register(r'devices', views.DeviceViewSet)
+router.register(r'devices', views.UaDeviceViewSet)
 router.register(r'products', views.ProductViewSet)
 
-device_weight = views.DeviceViewSet.as_view({
-    'get': 'get_weight'
-})
-
-device_register = views.DeviceViewSet.as_view({
+device_register = views.UaDeviceViewSet.as_view({
     'post': 'register'
 })
 
-device_ping = views.DeviceViewSet.as_view({
+device_ping = views.UaDeviceViewSet.as_view({
     'post': 'ping'
 })
 
-device_battery = views.DeviceViewSet.as_view({
+device_battery = views.UaDeviceViewSet.as_view({
     'get': 'get_battery',
     'post': 'post_battery'
 })
@@ -49,10 +46,9 @@ device_battery = views.DeviceViewSet.as_view({
 urlpatterns = [
                   url(r'^', include(router.urls)),
 
-                  url(r'^device/weight', device_weight),
-                  url(r'^device/register', device_register),
-                  url(r'^device/ping', device_ping),
-                  url(r'^device/battery', device_battery),
+                  url(r'^devices/(?P<pk>[0-9]+)/register', device_register, name='device-register'),
+                  url(r'^devices/(?P<pk>[0-9]+)/ping', device_ping, name='device-ping'),
+                  url(r'^devices/(?P<pk>[0-9]+)/battery', device_battery, name='device-battery'),
 
                   url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
                   url(r'^api-token-auth/', obtain_jwt_token),

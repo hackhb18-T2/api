@@ -29,6 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
+    'localhost:5000',
     'hackhb18-t2-api.herokuapp.com'
 ]
 
@@ -47,8 +48,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'T2API.middleware.CorsMiddleware', # WTF?!!?!??!?!?!?
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -138,12 +140,25 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-CORS_ORIGIN_ALLOW_ALL = False
+CSRF_TRUSTED_ORIGINS = (
+    'hackhb18-t2-api.herokuapp.com',
+    'hackerthon-bremen-team2.herokuapp.com',
+    'localhost:5000',
+    'localhost',
+)
 
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = (
     'hackhb18-t2-api.herokuapp.com',
-    'hackerthon-bremen-team2.herokuapp.com'
+    'hackerthon-bremen-team2.herokuapp.com',
+    'localhost:5000',
+    'localhost',
 )
+
+#CORS_EXPOSE_HEADERS = (
+#    'Access-Control-Allow-Origin: *',
+#)
+CORS_ALLOW_CREDENTIALS = False
 
 # Set default user model
 AUTH_USER_MODEL = 'T2API.ApiUser'

@@ -11,6 +11,8 @@ class Product(models.Model):
     name = models.CharField(max_length=150)
     ean = models.CharField(max_length=13)
 
+    weight = models.IntegerField(null=True, default=None)
+
     def __str__(self):
         return self.name
 
@@ -23,6 +25,7 @@ class Device(models.Model):
     resolution = models.CharField(max_length=15, default=None, null=True)
     last_ping = models.DateTimeField(auto_now=True)
     battery_status = models.CharField(max_length=20, default=None, null=True)
+    last_weight = models.IntegerField(null=False, default=-1)
 
     user = models.ForeignKey(ApiUser, related_name='devices', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='devices', on_delete=models.PROTECT, null=True, default=None)

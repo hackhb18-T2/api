@@ -11,7 +11,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
-
     class Meta:
         model = Group
         fields = ('url', 'name')
@@ -24,11 +23,15 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class DeviceSerializer(serializers.HyperlinkedModelSerializer):
-    #product = serializers.HyperlinkedModelSerializer(read_only=False, required=False)
-    #user = serializers.ReadOnlyField(source='user.username')
-    #user = serializers.SlugRelatedField(slug_field='username', required=True, queryset=UserSerializer)
+    # product = serializers.HyperlinkedModelSerializer(read_only=False, required=False)
+    # user = serializers.ReadOnlyField(source='user.username')
+    # user = serializers.SlugRelatedField(slug_field='username', required=True, queryset=UserSerializer)
 
     class Meta:
         model = Device
-        fields = ('url', 'mac', 'polling_rate', 'resolution', 'last_ping', 'battery_status', 'user', 'product')
+        fields = ('url', 'mac', 'polling_rate',
+                  'resolution', 'last_ping',
+                  'battery_status', 'user', 'product',
+                  'last_weight'
+                  )
         depth = 0
