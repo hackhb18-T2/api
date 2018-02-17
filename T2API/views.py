@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.models import Group
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import detail_route
@@ -60,8 +62,15 @@ class UaDeviceViewSet(DeviceViewSet):
     def register(self):
         pass
 
-    def ping(self):
-        pass
+    @detail_route(methods=['POST'], permission_classes=(permissions.AllowAny,), url_name='ping')
+    def ping(self, request, pk=None):
+        queryset = Device.objects.all()
+        device = get_object_or_404(queryset, pk=pk)
+
+        last_ping = datetime.datetime.now()
+        device.last_ping = last_ping
+        device.save()
+        return Response({'status': 'success'})
 
     def get_battery(self):
         pass
