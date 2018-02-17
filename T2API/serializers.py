@@ -19,7 +19,7 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Product
-        fields = ('url', 'name', 'ean')
+        fields = ('url', 'name', 'ean', 'weight')
 
 
 class DeviceSerializer(serializers.HyperlinkedModelSerializer):
