@@ -106,6 +106,14 @@ class UaDeviceViewSet(DeviceViewSet):
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @detail_route(methods=['GET'], permission_classes=(permissions.AllowAny,), url_name='product_weight')
+    def product_weight(self, request, pk=None):
+        queryset = Device.objects.all()
+        device = get_object_or_404(queryset, pk=pk)
+
+        serializer = ProductSerializer(device.product, context={'request': request})
+        return Response({'product_weight': serializer.data.get('weight')})
+
 
 class ProductViewSet(viewsets.ModelViewSet):
     """
