@@ -153,3 +153,6 @@ fabric.properties
 
 # Local Psql Data
 /data
+
+# Django generated static files
+staticfiles
