@@ -7,7 +7,7 @@ from T2API.models import ApiUser, Device, Product
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ApiUser
-        fields = ('url', 'username', 'email', 'groups')
+        fields = ('url', 'username', 'email', 'groups', 'devices')
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
