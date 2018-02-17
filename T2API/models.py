@@ -1,8 +1,17 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
+
+
+class ApiUser(AbstractUser):
+    pass
 
 class Product(models.Model):
     name = models.CharField(max_length=150)
     ean = models.CharField(max_length=13)
+
+    def __str__(self):
+        return self.name
+
 
 # Create your models here.
 class Device(models.Model):
@@ -13,4 +22,11 @@ class Device(models.Model):
     last_ping = models.DateTimeField(auto_now=True)
     battery_status = models.CharField(max_length=20)
 
-    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    user = models.ForeignKey(ApiUser, related_name='devices', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='devices', on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.mac
+
+    class Meta:
+        ordering = ('mac',)

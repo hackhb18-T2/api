@@ -141,3 +141,6 @@ CORS_ORIGIN_WHITELIST = (
     'hackhb18-t2-api.herokuapp.com',
     'hackerthon-bremen-team2.herokuapp.com'
 )
+
+# Set default user model
+AUTH_USER_MODEL = 'T2API.ApiUser'
