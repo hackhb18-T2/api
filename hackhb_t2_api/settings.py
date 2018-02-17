@@ -25,7 +25,9 @@ SECRET_KEY = 'o)5!6c^3c$b6!ogdd#i6nmy%86%n=8^x@d0w6@7*=)u0+f$8cx'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'hackhb18-t2-api.herokuapp.com'
+]
 
 # Application definition
 
