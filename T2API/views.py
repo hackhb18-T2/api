@@ -88,7 +88,7 @@ class UaDeviceViewSet(DeviceViewSet):
         device.save()
         return Response({'status': 'success'})
 
-    @detail_route(methods=['GET', 'POST'], permission_classes=(permissions.AllowAny,), url_name='battery')
+    @detail_route(methods=['GET', 'POST'], permission_classes=(permissions.AllowAny,), url_name='battery_status')
     def battery_status(self, request, pk=None):
         queryset = Device.objects.all()
         device = get_object_or_404(queryset, pk=pk)
