@@ -1,0 +1,11 @@
+version: '3'
+services:
+  postgres:
+    image: "postgres:alpine"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=hackhb18
+      - POSTGRES_PASSWORD=hackhb18
+    volumes:
+      - ./data/psql:/var/lib/postgresql

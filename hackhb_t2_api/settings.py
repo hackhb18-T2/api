@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'T2API.apps.T2ApiConfig',
 ]
 
@@ -76,10 +75,10 @@ WSGI_APPLICATION = 'hackhb_t2_api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'defaultdb',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
+        'NAME': 'hackhb18',
+        'USER': 'hackhb18',
+        'PASSWORD': 'hackhb18',
+        'HOST': 'localhost',
         'CONN_MAX_AGE': 500
     }
 }
