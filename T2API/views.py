@@ -1,8 +1,8 @@
 from django.contrib.auth.models import Group
 from rest_framework import viewsets, permissions
 
-from T2API.models import ApiUser
-from T2API.serializers import UserSerializer, GroupSerializer
+from T2API.models import ApiUser, Product, Device
+from T2API.serializers import UserSerializer, GroupSerializer, DeviceSerializer, ProductSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -27,8 +27,8 @@ class DeviceViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
+    queryset = Device.objects.all()
+    serializer_class = DeviceSerializer
     permission_classes = (permissions.IsAuthenticated,)
 
 
@@ -36,6 +36,6 @@ class ProductViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
     permission_classes = (permissions.IsAuthenticated,)

@@ -18,7 +18,7 @@ class Product(models.Model):
 class Device(models.Model):
     mac = models.CharField(max_length=12, unique=True)
     secret_key = models.TextField
-    pollingRate = models.IntegerField
+    polling_rate = models.IntegerField
     resolution = models.CharField(max_length=15)
     last_ping = models.DateTimeField(auto_now=True)
     battery_status = models.CharField(max_length=20)
@@ -32,8 +32,7 @@ class Device(models.Model):
     class Meta:
         ordering = ('mac',)
         permissions = (
-            'show_status',
-            'register_device',
-            'change_device',
-            'change_product'
+            ('show_status', 'Can show status vars'),
+            ('register_device', 'Can register a device'),
+            ('change_product', 'Can change associated procduct'),
         )
