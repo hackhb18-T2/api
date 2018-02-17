@@ -67,7 +67,7 @@ class UaDeviceViewSet(DeviceViewSet):
 
         mac = request.data['mac']
         initial_data = {
-            'mac' : mac
+            'mac': mac
         }
 
         serializer = DeviceSerializer(device, data=initial_data, partial=True, context={'request': request})
@@ -76,7 +76,7 @@ class UaDeviceViewSet(DeviceViewSet):
             device.save()
             return Response({'status': 'success'})
         else:
-            return Response(serializer.errors,
+            return Response(serializer.errors, )
 
     @detail_route(methods=['POST'], permission_classes=(permissions.AllowAny,), url_name='ping')
     def ping(self, request, pk=None):
@@ -88,11 +88,23 @@ class UaDeviceViewSet(DeviceViewSet):
         device.save()
         return Response({'status': 'success'})
 
-    def get_battery(self):
-        pass
+    @detail_route(methods=['GET', 'POST'], permission_classes=(permissions.AllowAny,), url_name='battery')
+    def battery_status(self, request, pk=None):
+        queryset = Device.objects.all()
+        device = get_object_or_404(queryset, pk=pk)
 
-    def post_battery(self):
-        pass
+        if request.method == 'GET':
+            serializer = DeviceSerializer(device, context={'request': request})
+            return Response({'battery_status': serializer.data.get('battery_status')})
+
+        elif request.method == 'POST':
+            serializer = DeviceSerializer(device, data=request.data, partial=True, context={'request': request})
+            if serializer.is_valid():
+                device.battery_status = request.data['battery_status']
+                device.save()
+                return Response({'status': 'success'})
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ProductViewSet(viewsets.ModelViewSet):
