@@ -1,7 +1,7 @@
 from django.contrib.auth.models import Group
 from rest_framework import serializers
 
-from T2API.models import ApiUser, Device, Product
+from T2API.models import ApiUser, Device, Product, PriceOffer
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -19,7 +19,14 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Product
-        fields = ('url', 'name', 'ean', 'weight')
+        fields = ('url', 'name', 'ean', 'weight', 'prices', 'image_url')
+        #depth = 2
+
+
+class PriceOfferSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = PriceOffer
+        fields = ('seller', 'name', 'price', 'vat', 'image_url')
 
 
 class DeviceSerializer(serializers.HyperlinkedModelSerializer):

@@ -27,6 +27,7 @@ router.register(r'groups', views.GroupViewSet)
 router.register(r'devices', views.DeviceViewSet)
 router.register(r'devices', views.UaDeviceViewSet)
 router.register(r'products', views.ProductViewSet)
+router.register(r'priceOffers', views.PriceOfferViewSet)
 
 device_register = views.UaDeviceViewSet.as_view({
     'post': 'register'

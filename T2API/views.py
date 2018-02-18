@@ -6,8 +6,8 @@ from rest_framework.decorators import detail_route
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 
-from T2API.models import ApiUser, Product, Device
-from T2API.serializers import UserSerializer, GroupSerializer, DeviceSerializer, ProductSerializer
+from T2API.models import ApiUser, Product, Device, PriceOffer
+from T2API.serializers import UserSerializer, GroupSerializer, DeviceSerializer, ProductSerializer, PriceOfferSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -121,4 +121,13 @@ class ProductViewSet(viewsets.ModelViewSet):
     """
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+
+class PriceOfferViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = PriceOffer.objects.all()
+    serializer_class = PriceOfferSerializer
     permission_classes = (permissions.IsAuthenticated,)

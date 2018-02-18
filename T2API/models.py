@@ -9,20 +9,9 @@ class ApiUser(AbstractUser):
 
 # Ignore
 class ProductCategory(models.Model):
-    name = models.CharField(null=False),
-    type = models.CharField(null=False, default='primary'),  # primary, matching
+    name = models.CharField(null=False, max_length=50)
+    type = models.CharField(null=False, default='primary', max_length=25)  # primary, matching
     order = models.IntegerField(null=False, default=0)  # in category
-
-    def __str__(self):
-        return self.name
-
-
-class PriceOffer(models.Model):
-    seller = models.CharField(null=False),  # Identifier
-    name = models.CharField(null=False),  # RealName
-    price = models.FloatField(null=False),  # Price
-    vat = models.IntegerField(null=True, default=7),
-    image_url = models.TextField(null=False, default=None)
 
     def __str__(self):
         return self.name
@@ -34,10 +23,22 @@ class Product(models.Model):
     ean = models.CharField(max_length=13)
 
     weight = models.IntegerField(null=True, default=None)
-    prices = models.ForeignKey(PriceOffer, related_name='Product', on_delete=models.CASCADE),  # List<PriceOffer>
-    image_url = models.TextField(null=True, default=None),
+    image_url = models.TextField(null=True, default=None)
 
     # category
+
+    def __str__(self):
+        return self.name
+
+
+class PriceOffer(models.Model):
+    seller = models.CharField(null=False, max_length=250)  # Identifier
+    name = models.CharField(null=False, max_length=250)  # RealName
+    price = models.FloatField(null=False)  # Price
+    vat = models.IntegerField(null=True, default=7)
+    image_url = models.TextField(null=True, default=None)
+
+    prices = models.ForeignKey(Product, related_name='prices', on_delete=models.CASCADE, null=True)  # List<PriceOffer>
 
     def __str__(self):
         return self.name
