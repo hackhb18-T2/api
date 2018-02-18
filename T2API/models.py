@@ -41,7 +41,7 @@ class PriceOffer(models.Model):
     prices = models.ForeignKey(Product, related_name='prices', on_delete=models.CASCADE, null=True)  # List<PriceOffer>
 
     def __str__(self):
-        return self.name
+        return '{} ({})'.format(self.name, self.seller)
 
 
 class ProductHistory(models.Model):
